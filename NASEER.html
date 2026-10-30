@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CHEM REPORT — Chemistry Research Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--p:#EC4899;--r:#BE185D;--lp:#FCE7F3;--lav:#EDE9FE;--plum:#3B1635;--bg:#FFF8FC;--w:#fff;--m:#7A5675;--ln:#F3D3E6;--g:linear-gradient(135deg,#EC4899,#BE185D);--sh:0 6px 24px rgba(190,24,93,.10);box-sizing:border-box}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font:15px/1.55 "DM Sans",system-ui,sans-serif;color:var(--plum);background:var(--bg);min-height:100vh;overflow-x:hidden}
+h1,h2,h3{font-family:"Outfit",sans-serif;margin:0;color:var(--plum)}
+h2{font-size:15px;margin-bottom:10px}
+button,input,select{font:inherit;color:var(--plum)}
+button{cursor:pointer;border:1px solid var(--ln);background:var(--w);border-radius:10px;padding:8px 14px;transition:.15s}
+button:hover{border-color:var(--p);transform:translateY(-1px)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--p);outline-offset:2px}
+button.on,button.go{background:var(--g);border-color:transparent;color:#fff;font-weight:600}
+button.sm{padding:5px 12px;font-size:13px}
+input{width:100%;border:1px solid var(--ln);border-radius:10px;padding:10px 14px;background:var(--w)}
+a{color:var(--r)}
+.app{display:flex;min-height:100vh}
+aside{width:250px;flex:none;background:var(--plum);color:#fff;display:flex;flex-direction:column;padding:16px 12px;position:sticky;top:0;height:100vh;transition:width .2s;z-index:30}
+.logo{display:flex;align-items:center;gap:10px;padding:4px 6px 16px}
+.logo svg{width:34px;height:34px;flex:none}
+.logo b{font:700 18px "Outfit";letter-spacing:.06em;color:#fff}
+.nav{display:flex;flex-direction:column;gap:4px;flex:1;overflow:auto}
+.nav button{background:none;border:0;color:#EBD3E6;text-align:left;display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:10px;white-space:nowrap}
+.nav button i{font-style:normal;width:20px;text-align:center;color:#F9A8D4}
+.nav button:hover{background:rgba(255,255,255,.08);transform:none}
+.nav button.act{background:var(--g);color:#fff}.nav button.act i{color:#fff}
+.prof{border-top:1px solid rgba(255,255,255,.15);padding-top:12px;display:flex;gap:10px;align-items:center;font-size:12px;color:#EBD3E6}
+.av{width:38px;height:38px;border-radius:50%;background:var(--g);display:grid;place-items:center;font:700 16px "Outfit";color:#fff;flex:none}
+.prof b{display:block;color:#fff;font-size:14px}
+.app.min aside{width:72px}.app.min .nav span,.app.min .logo b,.app.min .prof div{display:none}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:10px;padding:12px 22px;border-bottom:1px solid var(--ln);background:rgba(255,248,252,.9);position:sticky;top:0;z-index:20;backdrop-filter:blur(8px)}
+.top span{color:var(--m);font-size:13px;margin-left:auto}
+#menu{display:none}
+.view{display:none;padding:22px;max-width:1280px;width:100%;margin:0 auto;animation:fi .25s}
+.view.on{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card{background:var(--w);border:1px solid var(--ln);border-radius:16px;padding:18px;box-shadow:var(--sh);min-width:0}
+.hero{background:linear-gradient(135deg,#FCE7F3,#EDE9FE);border-radius:22px;padding:34px 28px;margin-bottom:18px;border:1px solid var(--ln)}
+.hero h1{font-size:clamp(26px,4vw,40px);line-height:1.15}
+.hero p{color:var(--m);margin:8px 0 18px;max-width:560px}
+.sbar{display:flex;gap:8px;flex-wrap:wrap}.sbar input{flex:1;min-width:220px}
+.st{min-height:1.3em;margin-top:8px;color:var(--m);font-size:13px}.st.bad{color:#B91C1C}
+.sec{display:flex;justify-content:space-between;align-items:center;margin:22px 0 10px}
+.sec h2{margin:0;font-size:18px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
+.cc{background:var(--w);border:1px solid var(--ln);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:4px;cursor:pointer;transition:.18s;align-items:flex-start}
+.cc:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(236,72,153,.22);border-color:var(--p)}
+.cc img{width:100%;height:104px;object-fit:contain;background:#fff;border-radius:10px;border:1px solid var(--lp)}
+.cc b{font:600 16px "Outfit";margin-top:4px}.cc em{font-style:normal;color:var(--r);font-weight:600}
+.tag{background:var(--lav);color:#5B21B6;border-radius:99px;font-size:11px;padding:2px 9px}
+.cc button{margin-top:6px}
+.two{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:900px){.two{grid-template-columns:1.2fr 1fr}}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{border-radius:99px;font-size:13px;padding:6px 14px}
+table{width:100%;border-collapse:collapse}td{padding:7px 4px;border-bottom:1px solid var(--lp);vertical-align:top;font-size:14px}
+td:first-child{color:var(--m);width:44%}td:last-child{word-break:break-word}
+.load{color:var(--r);padding:8px}.load:before{content:"";display:inline-block;width:14px;height:14px;border:2px solid var(--lp);border-top-color:var(--p);border-radius:50%;animation:sp .8s linear infinite;vertical-align:-2px;margin-right:8px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.empty{color:var(--m);padding:14px;text-align:center}
+.err{color:#B91C1C;font-size:13px;min-height:1em;margin-top:6px}
+.ex{display:grid;gap:14px;grid-template-columns:1fr}
+.ex>*{min-width:0}
+#vw{order:1}.tb{order:2}.inf{order:3}
+@media(min-width:1150px){.ex{grid-template-columns:250px 1fr 310px}.tb{order:1}#vw{order:2}.inf{order:3}}
+#v{width:100%;height:480px;position:relative;border-radius:12px;overflow:hidden;background:#2A0F27;border:1px solid var(--ln)}
+@media(max-width:700px){#v{height:340px}}
+.tb .row{margin-bottom:12px}.tb h3{font-size:13px;color:var(--m);margin:12px 0 6px;text-transform:uppercase;letter-spacing:.06em}
+.tb .row button{flex:1 1 auto;text-align:center}
+.list{max-height:190px;overflow:auto;border:1px solid var(--lp);border-radius:10px}
+.item{padding:7px 12px;cursor:pointer;display:flex;justify-content:space-between;gap:8px;font-size:14px}
+.item:hover,.item.sel{background:var(--lp)}.item span{color:var(--m);font-size:12px}
+.bar{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:12px}.bar b{width:130px;flex:none;font-weight:500;color:var(--m)}
+.bar i{flex:1;height:8px;border-radius:4px;background:var(--lp);overflow:hidden}.bar u{display:block;height:100%;background:var(--g);border-radius:4px}
+.pgrid{display:grid;gap:14px;grid-template-columns:1fr}@media(min-width:1000px){.pgrid{grid-template-columns:1fr 1fr}}
+.pt{display:grid;grid-template-columns:repeat(18,minmax(46px,1fr));grid-template-rows:repeat(7,auto) 14px repeat(2,auto);gap:4px;min-width:900px}
+.ptw{overflow-x:auto;padding-bottom:6px}
+.el{border:1px solid rgba(59,22,53,.15);border-radius:8px;padding:3px 4px;text-align:center;cursor:pointer;line-height:1.15;transition:.12s;background:var(--lp);color:var(--plum)}
+.el:hover,.el.sel{transform:scale(1.12);z-index:2;box-shadow:0 4px 14px rgba(190,24,93,.35);border-color:var(--r)}
+.el small{display:block;font-size:9px;color:#5b3a58;text-align:left}.el b{font:700 15px "Outfit"}.el span{display:block;font-size:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.leg{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;margin:10px 0}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:4px;border:1px solid rgba(59,22,53,.2)}
+.ft{margin-top:auto;background:var(--plum);color:#EBD3E6;text-align:center;padding:26px 18px;font-size:13px}
+.ft b{font:600 17px "Outfit";color:#fff;display:block}.ft em{color:#F9A8D4;display:block;margin-top:6px;font-style:normal}
+.mini{font-size:12px;color:var(--m);margin-top:10px}
+@media(max-width:899px){
+ aside{position:fixed;left:0;top:0;transform:translateX(-100%);width:260px!important;transition:transform .2s}
+ .app.open aside{transform:none}.app.min .nav span,.app.min .logo b,.app.min .prof div{display:inline}
+ #menu{display:inline-block}#collapse{display:none}.view{padding:14px}.hero{padding:22px 16px}
+}
+</style></head><body>
+<div class="app" id="app">
+<aside>
+ <div class="logo"><svg viewBox="0 0 40 40" fill="none"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#F472B6"/><stop offset="1" stop-color="#C084FC"/></linearGradient></defs><path d="M20 4l13 7.5v15L20 34 7 26.5v-15z" stroke="url(#lg)" stroke-width="2.4"/><circle cx="20" cy="4" r="3" fill="#F472B6"/><circle cx="33" cy="26.5" r="3" fill="#C084FC"/><circle cx="7" cy="26.5" r="3" fill="#F9A8D4"/><circle cx="20" cy="19" r="3.5" fill="#fff"/></svg><b>CHEM REPORT</b></div>
+ <nav class="nav" id="nav">
+  <button data-v="dash"><i>◧</i><span>Dashboard</span></button>
+  <button data-v="lib"><i>❖</i><span>Compound Library</span></button>
+  <button data-v="explorer"><i>⬡</i><span>Molecular Explorer</span></button>
+  <button data-v="periodic"><i>▦</i><span>Periodic Table</span></button>
+  <button data-v="props"><i>≣</i><span>Chemical Properties</span></button>
+  <button data-v="recent"><i>↻</i><span>Recently Explored</span></button>
+  <button data-v="about"><i>ⓘ</i><span>About Project</span></button>
+ </nav>
+ <div class="prof"><div class="av">N</div><div><b>NAZIR</b>RA2611026050286</div></div>
+</aside>
+<div class="main">
+ <div class="top"><button id="menu" aria-label="Open menu">☰</button><button id="collapse" aria-label="Collapse sidebar">☰</button><h3 id="ttl">Dashboard</h3><span>CHEM REPORT · Chemistry Research Studio</span></div>
+
+ <section class="view" id="v-dash">
+  <div class="hero"><h1>Explore Molecules.<br>Discover Chemistry.</h1><p>Search any compound or element through PubChem, then inspect its structure in 3D.</p>
+   <div class="sbar"><input id="q" placeholder="Any molecule or element: aspirin, gold, Fe, 50-78-2…"><button class="go" id="go">Search</button><button id="rnd">🎲 Random Compound</button></div>
+   <div class="st" data-k="st"></div></div>
+  <div class="sec"><h2>Quick-access compounds</h2><button class="sm" data-nav="lib">View library →</button></div>
+  <div class="grid" id="quick"></div>
+  <div class="sec"><h2>Recently explored</h2><button class="sm" data-nav="recent">See all →</button></div>
+  <div class="grid" id="recD"></div>
+  <div class="two" style="margin-top:22px">
+   <div class="card"><h2>Molecular discovery</h2><div id="spot"></div></div>
+   <div class="card"><h2>Research shortcuts</h2><div class="row" style="flex-direction:column">
+    <button data-nav="explorer">⬡ Open Molecular Explorer</button><button id="scSmi">⌗ Analyze a custom SMILES</button><button data-nav="periodic">▦ Browse the Periodic Table</button><button data-nav="props">≣ View chemical properties</button><button id="scPh">✚ Browse pharmaceutical compounds</button></div></div>
+  </div>
+ </section>
+
+ <section class="view" id="v-lib">
+  <div class="card"><h2>Compound Library</h2><input id="lq" placeholder="Search by name, formula or category…"><div class="row chips" id="chips" style="margin-top:10px"></div><div class="mini" id="lcount"></div></div>
+  <div class="grid" id="lib" style="margin-top:14px"></div>
+  <div style="text-align:center;margin:16px"><button class="go" id="more">Load more</button></div>
+ </section>
+
+ <section class="view" id="v-explorer">
+  <div class="ex">
+   <div class="card tb">
+    <h2>Visualisation</h2><div class="row" id="styles"><button data-s="bs" class="on">Ball &amp; stick</button><button data-s="st">Stick</button><button data-s="sp">Space filling</button><button data-s="ln">Wireframe</button></div>
+    <div class="row"><button id="bh" class="on">Hydrogens</button><button id="bl">Labels</button><button id="bspin">Spin</button><button id="bsurf">Surface</button><button id="brs">Reset view</button></div>
+    <h3>Sample compounds</h3><div class="list" id="list"></div>
+    <h3>Custom SMILES</h3><input id="smi" value="CCO" spellcheck="false"><div class="row" style="margin-top:8px"><button class="go" id="run">Analyze molecule</button></div><div class="err" id="err"></div>
+    <h3>ChemSpider API key (optional)</h3><input id="key" placeholder="Free key from developer.rsc.org" spellcheck="false">
+   </div>
+   <div class="card" id="vw"><h2>3D Molecule Explorer</h2><div id="v"></div><div class="st" data-k="st"></div></div>
+   <div class="card inf"><h2>Compound</h2><div data-k="sum"><div class="empty">Loading…</div></div><div data-k="img"></div><h2 style="margin-top:14px">Molecular properties</h2><div style="max-height:360px;overflow:auto"><table data-k="props"></table></div>
+    <div id="csout" class="mini"></div><div class="mini" data-k="links"></div>
+    <div id="elx" style="display:none;margin-top:12px"><h2>Element</h2><table data-k="eltab"></table></div></div>
+  </div>
+  <div class="card" style="margin-top:14px"><h2>Structure identifiers &amp; details</h2><table data-k="ids"></table></div>
+ </section>
+
+ <section class="view" id="v-periodic">
+  <div class="card"><h2>Interactive Periodic Table</h2><div class="st" id="ptst"></div><div class="ptw"><div class="pt" id="pt"></div></div><div class="leg" id="leg"></div></div>
+  <div class="card" style="margin-top:14px"><h2>Element details</h2><table id="eldet"><tr><td colspan="2" class="empty">Select an element tile.</td></tr></table></div>
+ </section>
+
+ <section class="view" id="v-props">
+  <div class="pgrid">
+   <div class="card"><h2>Compound summary</h2><div data-k="sum"><div class="empty">No compound loaded yet. <button class="sm go" data-nav="explorer">Open Explorer</button></div></div><div data-k="img"></div><div class="mini" data-k="links"></div></div>
+   <div class="card"><h2>Identifiers</h2><table data-k="ids"></table></div>
+   <div class="card"><h2>Chemical properties</h2><table data-k="props"></table></div>
+   <div class="card"><h2>Property profile</h2><div data-k="stats"></div><h2 style="margin-top:14px">Description</h2><p data-k="desc" style="margin:0"></p></div>
+   <div class="card" style="grid-column:1/-1"><h2>Experimental properties</h2><table data-k="exp"></table></div>
+  </div>
+ </section>
+
+ <section class="view" id="v-recent">
+  <div class="sec" style="margin-top:0"><h2>Recently explored</h2><button class="sm" id="clr">Clear history</button></div>
+  <div class="grid" id="recA"></div>
+ </section>
+
+ <section class="view" id="v-about">
+  <div class="two">
+   <div class="card"><h2>About CHEM REPORT</h2><p>CHEM REPORT is an interactive academic project for chemical discovery, molecular visualisation and chemical research. It searches PubChem (PUG REST, no key needed) for compound records, optionally queries ChemSpider with your own API key, and renders structures in 3D with 3Dmol.js. SMILES strings can also be parsed and analysed locally.</p>
+    <p class="mini">Live search needs an internet connection. No chemical values are hard-coded: properties shown come from PubChem or are computed from the structure. Your ChemSpider key stays only in your browser.</p></div>
+   <div class="card"><h2>Researcher profile</h2><div class="row" style="align-items:center;flex-wrap:nowrap"><div class="av" style="width:56px;height:56px;font-size:24px">N</div><div><h3 style="font-size:22px">NAZIR</h3>Registration Number: <b>RA2611026050286</b></div></div></div>
+  </div>
+ </section>
+
+ <footer class="ft"><b>CHEM REPORT — Chemistry Research Studio</b>“An interactive academic project for chemical discovery, molecular visualisation, and chemical research.”<em>Explore Molecules. Discover Chemistry.</em><div style="margin-top:8px">NAZIR · RA2611026050286</div></footer>
+</div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.4/3Dmol-min.js"></script>
+<script>
+/* ---------- Original sample data & chemistry engine (preserved) ---------- */
+const DB=[["Ethanol","CCO","64-17-5"],["Benzene","c1ccccc1","71-43-2"],["Phenol","Oc1ccccc1","108-95-2"],["Acetic acid","CC(=O)O","64-19-7"],["Aspirin","CC(=O)Oc1ccccc1C(=O)O","50-78-2"],["Caffeine","CN1C=NC2=C1C(=O)N(C(=O)N2C)C","58-08-2"],["Paracetamol","CC(=O)Nc1ccc(O)cc1","103-90-2"],["Acetone","CC(C)=O","67-64-1"],["Glycine","NCC(=O)O","56-40-6"],["Toluene","Cc1ccccc1","108-88-3"],["Acetylene","C#C","74-86-2"],["Methane","C","74-82-8"],["Formaldehyde","C=O","50-00-0"],["Pyridine","c1ccncc1","110-86-1"]];
+const VAL={C:4,N:3,O:2,S:2,P:3,F:1,Cl:1,Br:1,I:1,B:3,H:1},RAD={H:.31,C:.76,N:.71,O:.66,S:1.05,P:1.07,F:.57,Cl:1.02,Br:1.2,I:1.39,B:.85},MASS={H:1.008,C:12.011,N:14.007,O:15.999,S:32.06,P:30.974,F:18.998,Cl:35.45,Br:79.904,I:126.904,B:10.81};
+function parse(s){
+ const A=[],B=[],st=[],rg={};let p=-1,ord=0,i=0;
+ const bond=(a,b,o)=>{o=o||((A[a].ar&&A[b].ar)?1.5:1);B.push([a,b,o])};
+ const add=(sym,ar,h)=>{A.push({s:sym,ar,h});const k=A.length-1;if(p>=0)bond(p,k,ord);p=k;ord=0};
+ while(i<s.length){const c=s[i];
+  if(c=='('){st.push(p)}else if(c==')'){p=st.pop()}
+  else if(c=='-')ord=1;else if(c=='=')ord=2;else if(c=='#')ord=3;else if(c==':')ord=1.5;
+  else if(/\d/.test(c)){if(rg[c]!==undefined){bond(p,rg[c],ord);delete rg[c];ord=0}else rg[c]=p}
+  else if(c=='['){const e=s.indexOf(']',i);const m=s.slice(i+1,e).match(/^\d*([A-Z][a-z]?|[a-z]{1,2})@*(H\d?)?/);if(!m)throw 0;
+   const ar=m[1]===m[1].toLowerCase();const sym=m[1][0].toUpperCase()+m[1].slice(1);const h=m[2]?(m[2].length>1?+m[2][1]:1):0;add(sym,ar,h);i=e}
+  else if(s.substr(i,2)=='Cl'||s.substr(i,2)=='Br'){add(s.substr(i,2),false,null);i++}
+  else if('BCNOPSFI'.includes(c))add(c,false,null);
+  else if('cnops'.includes(c))add(c.toUpperCase(),true,null);
+  else if(c=='/'||c=='\\'||c=='@'||c=='+'){}else throw 0;
+  i++}
+ if(!A.length||st.length||Object.keys(rg).length)throw 0;
+ const n=A.length,sum=Array(n).fill(0);B.forEach(([a,b,o])=>{sum[a]+=o;sum[b]+=o});
+ for(let k=0;k<n;k++){const v=VAL[A[k].s];if(!v)throw 0;let h=A[k].h;if(h===null)h=Math.max(0,Math.round(v-sum[k]-.01));for(let j=0;j<h;j++){A.push({s:"H",ar:false});B.push([k,A.length-1,1])}}
+ return{A,B}}
+function embed(M){
+ const{A,B}=M,n=A.length,nb=A.map(()=>[]),bd={},rest=[],key=(a,b)=>a<b?a+"_"+b:b+"_"+a;
+ B.forEach(([a,b,o])=>{const d=RAD[A[a].s]+RAD[A[b].s]-(o-1)*.2;bd[key(a,b)]=d;nb[a].push([b,o]);nb[b].push([a,o]);rest.push([a,b,d])});
+ const fixed=new Set(Object.keys(bd));
+ nb.forEach((L,c)=>{if(L.length<2)return;const trip=L.some(x=>x[1]==3),sp2=A[c].ar||L.some(x=>x[1]>1);
+  const deg=trip?180:(sp2?120:109.5),cs=Math.cos(deg*Math.PI/180);
+  for(let x=0;x<L.length;x++)for(let y=x+1;y<L.length;y++){const a=L[x][0],b=L[y][0],d1=bd[key(a,c)],d2=bd[key(b,c)];
+   rest.push([a,b,Math.sqrt(d1*d1+d2*d2-2*d1*d2*cs)]);fixed.add(key(a,b))}});
+ const P=A.map(()=>[0,1,2].map(()=>(Math.random()-.5)*Math.cbrt(n)*2));
+ for(let it=0;it<500;it++){const F=P.map(()=>[0,0,0]);
+  rest.forEach(([a,b,d])=>{const v=[0,1,2].map(k=>P[b][k]-P[a][k]),l=Math.hypot(...v)||.01,f=(l-d)/l*.25;for(let k=0;k<3;k++){F[a][k]+=v[k]*f;F[b][k]-=v[k]*f}});
+  for(let a=0;a<n;a++)for(let b=a+1;b<n;b++){if(fixed.has(key(a,b)))continue;const v=[0,1,2].map(k=>P[b][k]-P[a][k]),l=Math.hypot(...v)||.01;
+   if(l<2.7){const f=(2.7-l)/l*.08;for(let k=0;k<3;k++){F[a][k]-=v[k]*f;F[b][k]+=v[k]*f}}}
+  for(let a=0;a<n;a++)for(let k=0;k<3;k++)P[a][k]+=F[a][k]}
+ const c=[0,1,2].map(k=>P.reduce((s,p)=>s+p[k],0)/n);return P.map(p=>p.map((x,k)=>x-c[k]))}
+function molblock(M,P){const f=x=>x.toFixed(4).padStart(10);
+ let t="mol\n  ChemReport\n\n"+String(M.A.length).padStart(3)+String(M.B.length).padStart(3)+"  0  0  0  0  0  0  0  0999 V2000\n";
+ M.A.forEach((a,i)=>t+=f(P[i][0])+f(P[i][1])+f(P[i][2])+" "+a.s.padEnd(3)+" 0  0  0  0  0  0  0  0  0  0  0  0\n");
+ M.B.forEach(([a,b,o])=>t+=String(a+1).padStart(3)+String(b+1).padStart(3)+String(o==1.5?4:o).padStart(3)+"  0\n");return t+"M  END\n"}
+function props(M,smi){
+ const cnt={};M.A.forEach(a=>cnt[a.s]=(cnt[a.s]||0)+1);
+ const order=["C","H",...Object.keys(cnt).filter(x=>x!="C"&&x!="H").sort()];
+ const formula=order.filter(x=>cnt[x]).map(x=>x+(cnt[x]>1?cnt[x]:"")).join("");
+ const mw=M.A.reduce((s,a)=>s+MASS[a.s],0);
+ const hv=M.A.filter(a=>a.s!="H").length;
+ const nH=(i)=>M.B.filter(([a,b])=>(a==i&&M.A[b].s=="H")||(b==i&&M.A[a].s=="H")).length;
+ let hbd=0,hba=0;M.A.forEach((a,i)=>{if(a.s=="N"||a.s=="O"){hba++;if(nH(i))hbd++}});
+ const pi=M.B.reduce((s,[a,b,o])=>s+(o-1),0);const sig=M.B.length;
+ return{formula,mw,hv,all:M.A.length,hbd,hba,sig,pi,rows:[["Molecular formula",formula],["Molecular weight",mw.toFixed(2)+" g/mol"],["Total atoms (with H)",M.A.length],["Heavy atoms",hv],["Sigma (σ) bonds",sig],["Pi (π) bonds",pi],["Total bonds (σ + π)",sig+pi],["H-bond donors",hbd],["H-bond acceptors (N+O)",hba],["Ring count",Math.max(0,M.B.filter(b=>M.A[b[0]].s!="H"&&M.A[b[1]].s!="H").length-(hv-1))]]}}
+
+/* ---------- Compound library: [name, formula, category, PubChem query, optional offline SMILES] ---------- */
+const CATS=["Everyday Chemicals","Organic Compounds","Biochemistry","Pharmaceutical Compounds","Laboratory Chemicals","Environmental Chemistry"];
+const LIB=[
+["Water","H2O",0,"water","O"],["Sodium Chloride","NaCl",0,"sodium chloride"],["Baking Soda","NaHCO3",0,"sodium bicarbonate"],["Hydrogen Peroxide","H2O2",0,"hydrogen peroxide","OO"],["Ammonia","NH3",0,"ammonia","N"],["Acetic Acid","C2H4O2",0,"acetic acid","CC(=O)O"],["Citric Acid","C6H8O7",0,"citric acid","OC(=O)CC(O)(CC(=O)O)C(=O)O"],
+["Ethanol","C2H6O",1,"ethanol","CCO"],["Methane","CH4",1,"methane","C"],["Benzene","C6H6",1,"benzene","c1ccccc1"],["Toluene","C7H8",1,"toluene","Cc1ccccc1"],["Acetone","C3H6O",1,"acetone","CC(C)=O"],["Phenol","C6H6O",1,"phenol","Oc1ccccc1"],["Formaldehyde","CH2O",1,"formaldehyde","C=O"],["Pyridine","C5H5N",1,"pyridine","c1ccncc1"],["Acetylene","C2H2",1,"acetylene","C#C"],
+["Glucose","C6H12O6",2,"glucose","OCC1OC(O)C(O)C(O)C1O"],["Fructose","C6H12O6",2,"fructose"],["Sucrose","C12H22O11",2,"sucrose"],["Glycine","C2H5NO2",2,"glycine","NCC(=O)O"],["Alanine","C3H7NO2",2,"alanine","CC(N)C(=O)O"],["Urea","CH4N2O",2,"urea","NC(N)=O"],["Lactic Acid","C3H6O3",2,"lactic acid","CC(O)C(=O)O"],["Cholesterol","C27H46O",2,"cholesterol"],
+["Aspirin","C9H8O4",3,"aspirin","CC(=O)Oc1ccccc1C(=O)O"],["Paracetamol","C8H9NO2",3,"paracetamol","CC(=O)Nc1ccc(O)cc1"],["Ibuprofen","C13H18O2",3,"ibuprofen","CC(C)Cc1ccc(cc1)C(C)C(=O)O"],["Caffeine","C8H10N4O2",3,"caffeine","CN1C=NC2=C1C(=O)N(C(=O)N2C)C"],["Vitamin C","C6H8O6",3,"ascorbic acid"],
+["Sulfuric Acid","H2SO4",4,"sulfuric acid"],["Hydrochloric Acid","HCl",4,"hydrochloric acid"],["Nitric Acid","HNO3",4,"nitric acid"],["Sodium Hydroxide","NaOH",4,"sodium hydroxide"],["Calcium Carbonate","CaCO3",4,"calcium carbonate"],["Copper Sulfate","CuSO4",4,"copper(II) sulfate"],
+["Carbon Dioxide","CO2",5,"carbon dioxide","O=C=O"],["Ozone","O3",5,"ozone"],["Sulfur Dioxide","SO2",5,"sulfur dioxide"],["Nitrogen Dioxide","NO2",5,"nitrogen dioxide"],["Carbon Monoxide","CO",5,"carbon monoxide"]];
+const QUICK=["Water","Caffeine","Glucose","Aspirin","Benzene","Sodium Chloride","Ethanol","Citric Acid","Paracetamol","Ibuprofen","Vitamin C","Carbon Dioxide"];
+
+/* ---------- Helpers ---------- */
+const $=id=>document.getElementById(id);
+const PUG="https://pubchem.ncbi.nlm.nih.gov/rest/pug/";
+const sub=f=>String(f).replace(/(\d+)/g,"<sub>$1</sub>");
+const row=r=>"<tr><td>"+r[0]+"</td><td>"+r[1]+"</td></tr>";
+const put=(k,h)=>document.querySelectorAll('[data-k="'+k+'"]').forEach(e=>e.innerHTML=h);
+const setSt=(m,bad)=>document.querySelectorAll('[data-k="st"]').forEach(e=>{e.textContent=m;e.className="st"+(bad?" bad":"")});
+const img=(src)=>'<img loading="lazy" alt="" src="'+src+'" onerror="this.style.visibility=\'hidden\'">';
+const libCard=(c,i)=>'<div class="cc" tabindex="0" data-i="'+i+'">'+img(PUG+"compound/name/"+encodeURIComponent(c[3])+"/PNG?image_size=140x140")+'<b>'+c[0]+'</b><em>'+sub(c[1])+'</em><span class="tag">'+CATS[c[2]]+'</span><button class="go sm">Explore</button></div>';
+let REC=[];try{REC=JSON.parse(localStorage.getItem("cr_rec")||"[]")}catch(e){}
+const saveRec=()=>{try{localStorage.setItem("cr_rec",JSON.stringify(REC))}catch(e){}};
+function addRec(n,f,cid){REC=REC.filter(r=>r.n!=n);REC.unshift({n,f,cid});REC=REC.slice(0,24);saveRec();drawRec()}
+const recCard=(r,i)=>'<div class="cc" tabindex="0" data-r="'+i+'">'+(r.cid?img(PUG+"compound/cid/"+r.cid+"/PNG?image_size=140x140"):"")+'<b>'+r.n+'</b><em>'+sub(r.f||"")+'</em><button class="go sm">Explore</button></div>';
+function drawRec(){const e='<div class="empty">Nothing explored yet — search or pick a compound.</div>';
+ $("recD").innerHTML=REC.length?REC.slice(0,6).map(recCard).join(""):e;$("recA").innerHTML=REC.length?REC.map(recCard).join(""):e}
+
+/* ---------- 3D viewer (preserved) ---------- */
+let V=null,sty="bs",showH=true,lab=false,spin=false,surf=false,cur=null,curName="";
+function draw(){if(!cur||!V)return;V.removeAllSurfaces();V.removeAllLabels();
+ const S={bs:{stick:{radius:.14},sphere:{scale:.28}},st:{stick:{radius:.2}},sp:{sphere:{scale:1}},ln:{line:{linewidth:2}}}[sty];
+ V.setStyle({},S);if(!showH)V.setStyle({elem:"H"},{});
+ if(lab)cur.M.A.forEach((a,i)=>{if(a.s!="H")V.addLabel(a.s,{position:{x:cur.P[i][0],y:cur.P[i][1],z:cur.P[i][2]},fontSize:13,fontColor:"#FBCFE8",backgroundOpacity:.5,backgroundColor:"#3B1635"})});
+ if(surf)V.addSurface($3Dmol.SurfaceType.VDW,{opacity:.55,color:"#F472B6"});
+ V.render()}
+function ensureViewer(){
+ if(typeof $3Dmol==="undefined"){$("err").textContent="3D viewer library failed to load (check your internet connection).";return}
+ if(!V){V=$3Dmol.createViewer($("v"),{backgroundColor:"#2A0F27"});if(!cur)analyze("CCO","Ethanol")}else{V.resize();V.render()}}
+function showModel(mb){if(!V)ensureViewer();if(!V)return;V.clear();V.addModel(mb,"sdf");V.zoomTo();draw()}
+
+/* ---------- Local SMILES analysis (preserved) ---------- */
+function analyze(smi,name){
+ $("err").textContent="";$("csout").textContent="";$("elx").style.display="none";let M;
+ try{M=parse(smi.trim())}catch(e){$("err").textContent="Could not read that SMILES. Check brackets, rings and element symbols.";return}
+ const P=embed(M),pr=props(M,smi);cur={M,P};curName=name||smi;showModel(molblock(M,P));
+ const cas=(DB.find(d=>d[1]==smi.trim())||[])[2]||"—";
+ put("sum",[["Name",name||"Custom molecule"],["Formula",sub(pr.formula)],["Molecular weight",pr.mw.toFixed(2)+" g/mol"],["PubChem CID","— (local analysis)"]].map(row).join("").replace(/^/,"<table>")+"</table>");
+ put("ids",[["Name",name||"Custom molecule"],["Formula",pr.formula],["SMILES",smi.trim()],["CAS number",cas],["Mol. weight",pr.mw.toFixed(2)]].map(row).join(""));
+ put("props",pr.rows.map(row).join(""));put("img","");put("stats","");put("desc","Computed locally from the SMILES string. PubChem-only data (descriptions, experimental values) is shown when you search PubChem.");put("exp",row(["—","Not available for locally analysed molecules."]));
+ const term=encodeURIComponent(name||smi.trim());
+ put("links",'<a target="_blank" rel="noopener" href="https://pubchem.ncbi.nlm.nih.gov/#query='+term+'">Open in PubChem ↗</a> · <a target="_blank" rel="noopener" href="https://www.chemspider.com/Search.aspx?q='+term+'">Open in ChemSpider ↗</a>');
+ renderList()}
+
+/* ---------- PubChem + ChemSpider (preserved) ---------- */
+let ELS=null;
+const jg=async u=>{const r=await fetch(u);if(!r.ok)throw new Error("HTTP "+r.status);return r};
+const jg2=async(u,o)=>{const r=await fetch(u,o);if(!r.ok)throw new Error("HTTP "+r.status);return r};
+function fs(o){if(!o||typeof o!="object")return null;if(typeof o.String=="string")return o.String;for(const k in o){const r=fs(o[k]);if(r)return r}return null}
+async function elements(){if(ELS)return ELS;const j=await(await jg(PUG+"periodictable/JSON")).json(),c=j.Table.Columns.Column;ELS=j.Table.Row.map(r=>{const o={};r.Cell.forEach((v,i)=>o[c[i]]=v);return o});return ELS}
+function elRows(e){return [["Name",e.Name+" ("+e.Symbol+")"],["CPK color",'<span style="display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:middle;background:#'+e.CPKHexColor+';border:1px solid #ccc"></span> #'+e.CPKHexColor],["Atomic number",e.AtomicNumber],["Protons / electrons",e.AtomicNumber],["Neutrons (approx.)",Math.round(+e.AtomicMass)-e.AtomicNumber],["Atomic mass",e.AtomicMass],["Group block",e.GroupBlock],["Standard state",e.StandardState],["Electron configuration",e.ElectronConfiguration],["Electronegativity",e.Electronegativity],["Atomic radius (pm)",e.AtomicRadius],["Ionization energy (eV)",e.IonizationEnergy],["Electron affinity (eV)",e.ElectronAffinity],["Oxidation states",e.OxidationStates],["Melting point (K)",e.MeltingPoint],["Boiling point (K)",e.BoilingPoint],["Density (g/cm³)",e.Density],["Year discovered",e.YearDiscovered]].filter(r=>r[1]!==undefined&&r[1]!=="").map(row).join("")}
+function showEl(e){put("eltab",elRows(e));$("elx").style.display="block"}
+function sdfModel(t){const L=t.split("\n"),na=+L[3].substr(0,3),nb=+L[3].substr(3,3),A=[],B=[],P=[];
+ for(let i=0;i<na;i++){const l=L[4+i];P.push([+l.substr(0,10),+l.substr(10,10),+l.substr(20,10)]);A.push({s:l.substr(31,3).trim()})}
+ for(let i=0;i<nb;i++){const l=L[4+na+i],o=+l.substr(6,3);B.push([+l.substr(0,3)-1,+l.substr(3,3)-1,o==4?1.5:o])}
+ return{M:{A,B},P}}
+async function compound(q){
+ const p=(await(await jg(PUG+"compound/name/"+encodeURIComponent(q)+"/property/Title,IUPACName,MolecularFormula,MolecularWeight,ExactMass,CanonicalSMILES,XLogP,TPSA,HBondDonorCount,HBondAcceptorCount,RotatableBondCount,HeavyAtomCount,Charge,Complexity,AtomStereoCount,BondStereoCount,CovalentUnitCount,Volume3D,InChIKey/JSON")).json()).PropertyTable.Properties[0];
+ let sdf,is3d=false;for(const t of["3d","2d"]){try{sdf=await(await jg(PUG+"compound/cid/"+p.CID+"/SDF?record_type="+t)).text();is3d=t=="3d";break}catch(e){}}
+ let cas="—",syn=[];try{const s=(await(await jg(PUG+"compound/cid/"+p.CID+"/synonyms/JSON")).json()).InformationList.Information[0].Synonym;syn=s.slice(0,6);cas=s.find(x=>/^\d{2,7}-\d\d-\d$/.test(x))||"—"}catch(e){}
+ let desc="";try{const I=(await(await jg(PUG+"compound/cid/"+p.CID+"/description/JSON")).json()).InformationList.Information;desc=(I.find(x=>x.Description)||{}).Description||""}catch(e){}
+ const exp={};await Promise.all(["Melting Point","Boiling Point","Density","Solubility","Flash Point","Vapor Pressure"].map(async h=>{try{const j=await(await jg(PUG.replace("/pug/","/pug_view/")+"data/compound/"+p.CID+"/JSON?heading="+encodeURIComponent(h))).json();const t=fs(j.Record.Section);if(t)exp[h]=t.slice(0,160)}catch(e){}}));
+ return{p,sdf,is3d,cas,syn,desc,exp}}
+function render({p,sdf,is3d,cas,syn,desc,exp},q){
+ const smi=p.ConnectivitySMILES||p.CanonicalSMILES||p.SMILES||"";
+ let{M,P}=sdfModel(sdf),mb=sdf;
+ if(!is3d){try{const m=parse(smi),e=embed(m);M=m;P=e;mb=molblock(m,e)}catch(x){}}
+ cur={M,P};curName=p.Title||q;showModel(mb);$("smi").value=smi;$("err").textContent="";
+ const v=x=>x===undefined?"—":x;
+ put("sum","<table>"+[["Name",curName],["Formula",sub(p.MolecularFormula)],["Molecular weight",p.MolecularWeight+" g/mol"],["PubChem CID",p.CID]].map(row).join("")+"</table>");
+ put("ids",[["Name",curName],["IUPAC name",v(p.IUPACName)],["Formula",p.MolecularFormula],["SMILES",smi||"—"],["InChIKey",v(p.InChIKey)],["CAS number",cas],["PubChem CID",p.CID],["Synonyms",syn.join(", ")||"—"]].map(row).join(""));
+ put("img",'<img alt="2D structure" style="width:100%;max-width:300px;background:#fff;border-radius:10px;margin-top:10px;border:1px solid var(--lp)" src="'+PUG+"compound/cid/"+p.CID+'/PNG?image_size=300x300" onerror="this.style.display=\'none\'">');
+ const sg=M.B.length,pi=M.B.reduce((s,b)=>s+b[2]-1,0);
+ let pr=[["Molecular weight",p.MolecularWeight+" g/mol"],["XLogP",v(p.XLogP)],["TPSA (Å²)",v(p.TPSA)],["H-bond donors",v(p.HBondDonorCount)],["H-bond acceptors",v(p.HBondAcceptorCount)],["Rotatable bonds",v(p.RotatableBondCount)],["Total atoms (with H)",M.A.length],["Sigma (σ) bonds",sg],["Pi (π) bonds",pi],["Total bonds (σ + π)",sg+pi],["Exact mass",v(p.ExactMass)],["Heavy atoms",v(p.HeavyAtomCount)],["Formal charge",v(p.Charge)],["Complexity",v(p.Complexity)],["Stereo atoms",v(p.AtomStereoCount)],["Stereo bonds",v(p.BondStereoCount)],["Covalent units",v(p.CovalentUnitCount)],["3D volume (Å³)",v(p.Volume3D)]];
+ const num=x=>+x||0,cl=x=>Math.max(0,Math.min(1,x));
+ const vio=(num(p.MolecularWeight)>500)+(num(p.XLogP)>5)+(num(p.HBondDonorCount)>5)+(num(p.HBondAcceptorCount)>10);
+ pr.push(["Lipinski rule of five",vio?vio+" violation(s)":"Pass (0 violations)"]);
+ {const t={};let tot=0,ok=true;M.A.forEach(a=>{if(!MASS[a.s])ok=false;else{t[a.s]=(t[a.s]||0)+MASS[a.s];tot+=MASS[a.s]}});if(ok)pr.push(["Composition by mass",Object.keys(t).map(k=>k+" "+(t[k]/tot*100).toFixed(1)+"%").join(", ")])}
+ put("props",pr.map(row).join(""));
+ put("stats",[["Mass",num(p.MolecularWeight)/500],["Lipophilicity (XLogP)",(num(p.XLogP)+3)/8],["Polarity (TPSA)",num(p.TPSA)/140],["Donors",num(p.HBondDonorCount)/5],["Acceptors",num(p.HBondAcceptorCount)/10],["Complexity",num(p.Complexity)/600]].map(z=>'<div class="bar"><b>'+z[0]+'</b><i><u style="width:'+Math.round(cl(z[1])*100)+'%"></u></i></div>').join(""));
+ put("desc",desc?desc.replace(/</g,"&lt;"):"No description available on PubChem.");
+ const ek=Object.keys(exp);put("exp",ek.length?ek.map(k=>row([k,exp[k].replace(/</g,"&lt;")])).join(""):row(["—","No experimental values found on PubChem."]));
+ put("links",'<a target="_blank" rel="noopener" href="https://pubchem.ncbi.nlm.nih.gov/compound/'+p.CID+'">Open in PubChem ↗</a> · <a target="_blank" rel="noopener" href="https://www.chemspider.com/Search.aspx?q='+encodeURIComponent(curName)+'">Open in ChemSpider ↗</a>');
+ addRec(curName,p.MolecularFormula,p.CID);renderList()}
+async function chemspider(name){const k=$("key").value.trim(),o=$("csout");
+ if(!k){o.textContent="ChemSpider: add a free API key (developer.rsc.org) in the toolbar to pull its record here. The link below still works.";return}
+ o.textContent="Asking ChemSpider…";
+ try{const H={apikey:k,"Content-Type":"application/json"},U="https://api.rsc.org/compounds/v1/";
+  const a=await(await jg2(U+"filter/name",{method:"POST",headers:H,body:JSON.stringify({name})})).json();let r;
+  for(let i=0;i<8;i++){r=await(await jg2(U+"filter/"+a.queryId+"/results",{headers:H})).json();if(r.results)break;await new Promise(z=>setTimeout(z,700))}
+  const id=r.results[0],d=await(await jg2(U+"records/"+id+"/details?fields=CommonName,Formula,MolecularWeight",{headers:H})).json();
+  o.innerHTML="ChemSpider ID <b>"+id+"</b> · "+d.commonName+" · "+String(d.formula).replace(/[_{}]/g,"")+' · <a href="https://www.chemspider.com/Chemical-Structure.'+id+'.html" target="_blank" rel="noopener">open record ↗</a>';
+  try{localStorage.setItem("csk",k)}catch(e){}
+ }catch(e){o.textContent="ChemSpider did not answer. Check the API key; the RSC server may also block calls made from a browser."}}
+function findLocal(q){q=q.toLowerCase();const l=LIB.find(c=>c[4]&&(c[3]==q||c[0].toLowerCase()==q));if(l)return[l[4],l[0]];const d=DB.find(x=>x[0].toLowerCase()==q);return d?[d[1],d[0]]:null}
+async function live(q){if(!q)return;nav("explorer");setSt("Searching PubChem…");$("err").textContent="";$("elx").style.display="none";
+ put("sum",'<div class="load">Loading compound data…</div>');
+ const[el,cp]=await Promise.allSettled([elements().then(L=>L.find(e=>e.Name.toLowerCase()==q.toLowerCase()||e.Symbol.toLowerCase()==q.toLowerCase())),compound(q)]);
+ const net=[el,cp].some(r=>r.status=="rejected"&&r.reason instanceof TypeError),e=el.status=="fulfilled"?el.value:null;
+ if(e)showEl(e);
+ if(!e&&cp.status!="fulfilled"){const loc=net&&findLocal(q);
+  if(loc){analyze(loc[0],loc[1]);setSt("Can’t reach PubChem — showing a locally computed structure for “"+loc[1]+"”.",true);return}
+  const m=net?"Can’t reach PubChem. Live search needs internet and works from the downloaded file or a hosted copy.":"Nothing found for “"+q+"”. Try another name, symbol or CAS number.";
+  setSt(m,true);put("sum",'<div class="empty" style="color:#B91C1C">'+m+'</div>');return}
+ setSt((e?"Element found. ":"")+(cp.status=="fulfilled"?"Compound found on PubChem.":"No compound record with that name."));
+ if(cp.status=="fulfilled"){render(cp.value,q);chemspider(cp.value.p.Title||q)}
+ else put("sum",'<div class="empty">No compound record for this element name; see element details below.</div>')}
+
+/* ---------- Navigation & views ---------- */
+const TITLES={dash:"Dashboard",lib:"Compound Library",explorer:"Molecular Explorer",periodic:"Periodic Table",props:"Chemical Properties",recent:"Recently Explored",about:"About Project"};
+function nav(v){document.querySelectorAll(".view").forEach(s=>s.classList.toggle("on",s.id=="v-"+v));
+ document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("act",b.dataset.v==v));
+ $("ttl").textContent=TITLES[v];$("app").classList.remove("open");window.scrollTo(0,0);
+ if(v=="explorer")ensureViewer();if(v=="periodic")loadPT()}
+let lcat=-1,lshown=12;
+function drawLib(){const q=$("lq").value.toLowerCase().trim();
+ const L=LIB.map((c,i)=>[c,i]).filter(([c])=>(lcat<0||c[2]==lcat)&&(!q||(c[0]+" "+c[1]+" "+CATS[c[2]]+" "+c[3]).toLowerCase().includes(q)));
+ $("lib").innerHTML=L.slice(0,lshown).map(([c,i])=>libCard(c,i)).join("")||'<div class="empty">No compounds match your search.</div>';
+ $("more").style.display=L.length>lshown?"inline-block":"none";$("lcount").textContent="Showing "+Math.min(lshown,L.length)+" of "+L.length+" compounds";
+ $("chips").innerHTML=['<button data-c="-1" class="'+(lcat<0?"on":"")+'">All</button>'].concat(CATS.map((c,i)=>'<button data-c="'+i+'" class="'+(lcat==i?"on":"")+'">'+c+'</button>')).join("")}
+function renderList(){const q=($("q").value||"").toLowerCase();
+ $("list").innerHTML="";DB.filter(d=>(d[0]+d[2]).toLowerCase().includes(q)||props(parse(d[1])).formula.toLowerCase().includes(q)).forEach(d=>{
+  const e=document.createElement("div");e.className="item"+(d[0]==curName?" sel":"");e.innerHTML="<b>"+d[0]+"</b><span>"+d[2]+"</span>";
+  e.onclick=()=>{$("smi").value=d[1];analyze(d[1],d[0])};$("list").appendChild(e)})}
+function spot(){const c=LIB[Math.floor(Math.random()*LIB.length)],i=LIB.indexOf(c);
+ $("spot").innerHTML='<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><div style="width:140px">'+libCard(c,i)+'</div><div style="flex:1;min-width:180px"><p style="margin:0 0 8px">Molecule spotlight: <b>'+c[0]+'</b> ('+sub(c[1])+'), from the '+CATS[c[2]].toLowerCase()+' set. The library holds <b>'+LIB.length+'</b> compounds across <b>'+CATS.length+'</b> categories.</p><button class="sm" id="shuf">Shuffle ↻</button></div></div>';
+ $("shuf").onclick=spot}
+const CC={"alkali metal":"#F9A8D4","alkaline earth":"#FBCFE8","transition metal":"#DDD6FE","post-transition":"#C4B5FD","metalloid":"#FDE4F0","nonmetal":"#FFF1F8","halogen":"#F5D0FE","noble gas":"#E9D5FF","lanthanide":"#FECDD3","actinide":"#FDA4AF"};
+function ecat(g){g=(g||"").toLowerCase();if(g.includes("alkaline"))return"alkaline earth";if(g.includes("alkali"))return"alkali metal";if(g.includes("post"))return"post-transition";if(g.includes("transition"))return"transition metal";if(g.includes("noble"))return"noble gas";if(g.includes("halogen"))return"halogen";if(g.includes("metalloid"))return"metalloid";if(g.includes("lantha"))return"lanthanide";if(g.includes("actin"))return"actinide";return"nonmetal"}
+function pos(z){if(z==1)return[1,1];if(z==2)return[1,18];if(z<=4)return[2,z-2];if(z<=10)return[2,z+8];if(z<=12)return[3,z-10];if(z<=18)return[3,z];if(z<=36)return[4,z-18];if(z<=54)return[5,z-36];if(z<=56)return[6,z-54];if(z<=71)return[8,z-54];if(z<=86)return[6,z-68];if(z<=88)return[7,z-86];if(z<=103)return[9,z-86];return[7,z-100]}
+let ptDone=false;
+async function loadPT(){if(ptDone)return;$("ptst").innerHTML='<span class="load">Loading elements from PubChem…</span>';
+ try{const L=await elements();$("pt").innerHTML="";L.forEach(e=>{const[r,c]=pos(+e.AtomicNumber),d=document.createElement("div");d.className="el";d.style.gridColumn=c;d.style.gridRow=r>=8?r+1:r;d.style.background=CC[ecat(e.GroupBlock)];
+  d.innerHTML="<small>"+e.AtomicNumber+"</small><b>"+e.Symbol+"</b><span>"+e.Name+"</span>";d.title=e.Name;
+  d.onclick=()=>{document.querySelectorAll(".el.sel").forEach(x=>x.classList.remove("sel"));d.classList.add("sel");$("eldet").innerHTML=elRows(e)+'<tr><td colspan="2"><button class="sm go" id="elx2">Search “'+e.Name+'” in Explorer</button></td></tr>';$("elx2").onclick=()=>live(e.Name)};$("pt").appendChild(d)});
+  $("leg").innerHTML=Object.keys(CC).map(k=>'<span><i style="background:'+CC[k]+'"></i>'+k+'</span>').join("");$("ptst").textContent="";ptDone=true}
+ catch(e){$("ptst").innerHTML='<span style="color:#B91C1C">Could not load the periodic table from PubChem (internet needed). </span><button class="sm" id="ptr">Retry</button>';$("ptr").onclick=loadPT}}
+
+/* ---------- Init ---------- */
+function init(){
+ document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>nav(b.dataset.v));
+ document.addEventListener("click",e=>{
+  const n=e.target.closest("[data-nav]");if(n){nav(n.dataset.nav);return}
+  const c=e.target.closest("[data-i],[data-r]");if(!c)return;
+  if(c.dataset.i!==undefined){const l=LIB[+c.dataset.i];live(l[3])}else live(REC[+c.dataset.r].n)});
+ document.addEventListener("keydown",e=>{if(e.key=="Enter"&&e.target.classList.contains("cc"))e.target.click()});
+ $("menu").onclick=()=>$("app").classList.toggle("open");
+ $("collapse").onclick=()=>{$("app").classList.toggle("min");setTimeout(()=>V&&(V.resize(),V.render()),250)};
+ $("go").onclick=()=>live($("q").value.trim());$("q").onkeydown=e=>{if(e.key=="Enter")$("go").click()};
+ $("rnd").onclick=()=>live(LIB[Math.floor(Math.random()*LIB.length)][3]);
+ $("scSmi").onclick=()=>{nav("explorer");$("smi").focus()};
+ $("scPh").onclick=()=>{lcat=3;lshown=12;$("lq").value="";drawLib();nav("lib")};
+ $("quick").innerHTML=QUICK.map(n=>{const i=LIB.findIndex(c=>c[0]==n);return libCard(LIB[i],i)}).join("");
+ $("lq").oninput=()=>{lshown=12;drawLib()};$("more").onclick=()=>{lshown+=12;drawLib()};
+ $("chips").onclick=e=>{const b=e.target.closest("[data-c]");if(b){lcat=+b.dataset.c;lshown=12;drawLib()}};
+ $("clr").onclick=()=>{REC=[];saveRec();drawRec()};
+ try{$("key").value=localStorage.getItem("csk")||""}catch(e){}
+ $("run").onclick=()=>{curName="";analyze($("smi").value)};$("smi").onkeydown=e=>{if(e.key=="Enter")$("run").click()};
+ document.querySelectorAll("#styles button").forEach(b=>b.onclick=()=>{sty=b.dataset.s;document.querySelectorAll("#styles button").forEach(x=>x.classList.toggle("on",x==b));draw()});
+ const tg=(id,fn)=>{$(id).onclick=()=>{const on=fn();$(id).classList.toggle("on",on);draw()}};
+ tg("bh",()=>showH=!showH);tg("bl",()=>lab=!lab);tg("bsurf",()=>surf=!surf);
+ $("bspin").onclick=()=>{if(!V)return;spin=!spin;V.spin(spin);$("bspin").classList.toggle("on",spin)};
+ $("brs").onclick=()=>{if(V){V.zoomTo();V.render()}};
+ window.addEventListener("resize",()=>{if(V){V.resize();V.render()}});
+ drawLib();drawRec();spot();renderList();nav("dash")}
+window.addEventListener("load",()=>{try{init()}catch(e){console.error(e);document.body.insertAdjacentHTML("afterbegin",'<p style="color:#B91C1C;padding:12px">CHEM REPORT failed to start: '+e.message+'</p>')}});
+</script></body></html>
